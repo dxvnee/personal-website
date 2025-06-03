@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Real-time Project Updates</title>
+    <script src="https://cdn.socket.io/4.0.1/socket.io.min.js"></script>
+    <script>
+        const socket = io('http://localhost:3000');
+
+        // Mendengarkan event 'projectsUpdated' untuk menerima data terbaru
+        socket.on('projectsUpdated', (projects) => {
+            console.log('Projects updated:', projects);
+            // Tampilkan data di UI (misalnya)
+            const projectList = document.getElementById('project-list');
+            projectList.innerHTML = ''; // Hapus isi sebelumnya
+            projects.forEach(project => {
+                const projectItem = document.createElement('li');
+                projectItem.textContent = project.title; // Menampilkan judul proyek
+                projectList.appendChild(projectItem);
+            });
+        });
+    </script>
+</head>
+<body>
+    <h1>Project List</h1>
+    <ul id="project-list">
+        <!-- Daftar proyek akan ditampilkan di sini -->
+    </ul>
+</body>
+</html>
